@@ -24,13 +24,11 @@ const Upload = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return response.json();
+      return response.blob();
     })
-    .then(data => {
-      console.log(data);
-      // Assuming 'data' contains the path or URL to the processed image
-      const resultImage = data.filename; // Adjust this if your backend sends a different field
-      navigate('/segmentation', { state: { image: resultImage } });
+    .then(blob => {
+      const imageUrl = URL.createObjectURL(blob);
+      navigate('/segmentation', { state: { image: imageUrl } });
     })
     .catch(error => {
       console.error('Error:', error);
