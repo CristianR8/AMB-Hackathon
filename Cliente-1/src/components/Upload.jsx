@@ -11,13 +11,12 @@ const Upload = () => {
   const navigate = useNavigate();
 
   const handleSegmentation = () => {
-
-    setIsLoading(true);
-
     if (!selectedImage) {
       console.error("No image selected");
       return;
     }
+
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("file", selectedImage);
@@ -41,16 +40,13 @@ const Upload = () => {
             segmentedImage: segmentedImageUrl,
           },
         });
-        setIsLoading(false);
       })
-      
+
       .catch((error) => {
         console.error("Error:", error);
-        
       });
 
-      
-
+    setIsLoading(true);
   };
 
   const handleImageChange = (e) => {
