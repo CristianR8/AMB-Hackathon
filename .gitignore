@@ -1,3 +1,7 @@
+
+
+Servidor/env/*
+
 # Logs
 logs
 *.log

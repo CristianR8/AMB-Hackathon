@@ -13,8 +13,8 @@ def load_model(model_path, device):
     model.eval()
     return model
 
-MODEL_PATH = 'deepbeauyAlldata_model'
-model = load_model(os.path.join(MODEL_PATH + '.pth'), device='cpu')
+MODEL_PATH = 'deepbeautyDIOSBENDIGO_model'
+#model = load_model(os.path.join(MODEL_PATH + '.pth'), device='cpu')
 
 
 app = Flask(__name__)
@@ -22,6 +22,7 @@ CORS(app)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    print('uploading file')
     try:
         if 'file' not in request.files:
             return jsonify({"error": "No file part"}), 400
@@ -32,27 +33,17 @@ def upload_file():
             image = Image.open(io.BytesIO(content)).convert('RGB')
             image = np.array(image)
 
-            preprocess = transforms.Compose([
-                transforms.Resize((500, 500)),
-                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-                transforms.ToTensor(),
-            ])
-            input_tensor = preprocess(image)
+            #save image in folder as png
+            plt.imsave('input.png', image)
 
-            input_batch = input_tensor.unsqueeze(0) 
-            with torch.no_grad():
-                output = model(input_batch)
+            #execute command
+            os.system('python predict.py --image_path input --model_path deepbeautyDIOSBENDIGO_model')
 
-            output_image = output.squeeze().cpu().numpy()
-            output_image = np.transpose(output_image, (1, 2, 0))
-            output_image = (output_image - output_image.min()) / (output_image.max() - output_image.min())
-            plt.imsave('/tmp/output.png', output_image)
-
-            return send_file('/tmp/output.png', mimetype='image/png')
+            return send_file('input_prediction.png', mimetype='image/png')
 
     except Exception as e:
         print(e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True, port=5001)
