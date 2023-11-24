@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
-import logo from '../assets/img/logo.png'
+import logo from "../assets/img/logo.png";
 
 const Upload = () => {
   const [selectedImage, setSelectedImage] = useState(null); // This is the file to be uploaded
@@ -11,12 +11,13 @@ const Upload = () => {
   const navigate = useNavigate();
 
   const handleSegmentation = () => {
+
+    setIsLoading(true);
+
     if (!selectedImage) {
       console.error("No image selected");
       return;
     }
-
-    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("file", selectedImage);
@@ -32,7 +33,6 @@ const Upload = () => {
         return response.blob();
       })
       .then((blob) => {
-        setIsLoading(false);
         const segmentedImageUrl = URL.createObjectURL(blob);
         const originalImageUrl = URL.createObjectURL(selectedImage);
         navigate("/segmentation", {
@@ -41,11 +41,16 @@ const Upload = () => {
             segmentedImage: segmentedImageUrl,
           },
         });
+        setIsLoading(false);
       })
+      
       .catch((error) => {
         console.error("Error:", error);
-        setIsLoading(false);
+        
       });
+
+      
+
   };
 
   const handleImageChange = (e) => {
@@ -76,10 +81,10 @@ const Upload = () => {
             AMB-EYE
           </h2>
           {!previewImage && ( // This will only render if previewImage is not set
-          <h2 className="pt-6 text-xl font-mono font-extrabold relative text-neutral-300">
-            Load the orthophoto
-          </h2>
-        )}
+            <h2 className="pt-6 text-xl font-mono font-extrabold relative text-neutral-300">
+              Load the orthophoto
+            </h2>
+          )}
           <input
             className="my-3 block w-full text-lg text-gray-900 border border-neutral-950 rounded-lg cursor-pointer bg-neutral-950  dark:text-gray-50 focus:outline-none dark:bg-neutral-800 dark:border-neutral-800 dark:placeholder-neutral-900"
             id="large_size"

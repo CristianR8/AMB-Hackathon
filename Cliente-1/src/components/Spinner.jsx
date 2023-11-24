@@ -1,16 +1,17 @@
 import React from "react";
-import { Dna } from "react-loader-spinner";
+import { ProgressBar } from "react-loader-spinner";
 
 const Spinner = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Dna
-        visible={true}
-        height="100"
-        width="100"
-        ariaLabel="dna-loading"
+    <div className="flex items-center justify-center">
+      <ProgressBar
+        height="150"
+        width="200"
+        ariaLabel="progress-bar-loading"
         wrapperStyle={{}}
-        wrapperClass="dna-wrapper"
+        wrapperClass="progress-bar-wrapper"
+        borderColor="#FFFFFF"
+        barColor="#FFFFFF"
       />
     </div>
   );
