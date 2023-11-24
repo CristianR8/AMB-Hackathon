@@ -72,10 +72,8 @@ const Upload = () => {
               "linear-gradient(to right, rgba(1, 1, 1, 0.7), rgba(1, 1, 1, 0.7))",
           }}
         >
-          <img src={logo} className="mx-auto h-28 w-28" />
-          <h2 className="text-2xl font-mono font-extrabold relative dark:text-white">
-            AMB-EYE
-          </h2>
+          <img src={logo} className="mx-auto h-36 w-36" />
+
           {!previewImage && ( // This will only render if previewImage is not set
             <h2 className="pt-6 text-xl font-mono font-extrabold relative text-neutral-300">
               Load the orthophoto
