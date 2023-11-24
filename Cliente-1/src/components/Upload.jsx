@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import logo from '../assets/img/logo.png'
 
 const Upload = () => {
   const [selectedImage, setSelectedImage] = useState(null); // This is the file to be uploaded
@@ -64,17 +65,23 @@ const Upload = () => {
     <>
       {!isLoading && (
         <div
-          className="p-14 rounded-lg static flex flex-col"
+          className="px-20 py-4 rounded-lg static flex flex-col"
           style={{
             background:
               "linear-gradient(to right, rgba(1, 1, 1, 0.7), rgba(1, 1, 1, 0.7))",
           }}
         >
-          <h2 className="text-4xl font-extrabold realtive dark:text-white">
+          <img src={logo} className="mx-auto h-28 w-28" />
+          <h2 className="text-2xl font-mono font-extrabold relative dark:text-white">
+            AMB-EYE
+          </h2>
+          {!previewImage && ( // This will only render if previewImage is not set
+          <h2 className="pt-6 text-xl font-mono font-extrabold relative text-neutral-300">
             Load the orthophoto
           </h2>
+        )}
           <input
-            className="my-8 block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-50 focus:outline-none dark:bg-neutral-800 dark:border-neutral-800 dark:placeholder-neutral-900"
+            className="my-3 block w-full text-lg text-gray-900 border border-neutral-950 rounded-lg cursor-pointer bg-neutral-950  dark:text-gray-50 focus:outline-none dark:bg-neutral-800 dark:border-neutral-800 dark:placeholder-neutral-900"
             id="large_size"
             type="file"
             onChange={handleImageChange}
@@ -90,7 +97,7 @@ const Upload = () => {
                 alt="Selected"
               />
               <button
-                className="mt-8 text-bold text-lg z-0 hover:scale-110 hover:bg-neutral-50 hover:text-neutral-900  hover:border-neutral-950 transition-all duration-200 relative"
+                className="mt-6 py-4 text-bold text-lg z-0 hover:scale-110 hover:bg-neutral-50 hover:text-neutral-900  hover:border-neutral-950 transition-all duration-200 relative"
                 onClick={handleSegmentation}
               >
                 Segmentar
