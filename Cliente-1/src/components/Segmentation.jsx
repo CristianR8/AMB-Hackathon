@@ -11,7 +11,7 @@ const Segmentation = () => {
   return (
     <div className="p-4">
       <div className="flex justify-center items-center space-x-4">
-        {segmentation && (
+        {segmentedImage && (
           <>
           <div className="relative">
               <button
